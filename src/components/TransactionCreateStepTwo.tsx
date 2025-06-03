@@ -189,6 +189,11 @@ const TransactionCreateStepTwo: React.FC<TransactionCreateStepTwoProps> = ({
                   </Button>
                 </Grid>
                 <Grid item>
+                  {/* 
+                  ========== INÍCIO ERRO E001 ==========
+                  Categoria: UI/Visibilidade
+                  Descrição: Esconder o botão “Submit Payment” com display: none
+                  */}
                   <Button
                     type="submit"
                     fullWidth
@@ -198,9 +203,11 @@ const TransactionCreateStepTwo: React.FC<TransactionCreateStepTwoProps> = ({
                     data-test="transaction-create-submit-payment"
                     disabled={!isValid || isSubmitting}
                     onClick={() => setTransactionType("payment")}
+                    style={{ display: "none" }} // ERRO E001 SEMEADO AQUI
                   >
                     Pay
                   </Button>
+                  {/* ========== FIM ERRO E001 ========== */}
                 </Grid>
               </Grid>
             </Form>
