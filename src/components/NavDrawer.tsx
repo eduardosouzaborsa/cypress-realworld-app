@@ -174,12 +174,20 @@ export const mainListItems = (
 
 export const secondaryListItems = (signOutPending: Function) => (
   <div>
+    {/* 
+      ========== INÍCIO ERRO E002 ==========
+      Categoria: UI/Navegação
+      Descrição: Remover o botão "Sign Out" do menu lateral
+    */}
+    {/*
     <ListItem button onClick={() => signOutPending()} data-test="sidenav-signout">
       <ListItemIcon>
         <LogoutIcon />
       </ListItemIcon>
       <ListItemText primary="Logout" />
     </ListItem>
+    */}
+    {/* ========== FIM ERRO E002 ========== */}
   </div>
 );
 
