@@ -160,6 +160,7 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
             )}
           </Link>
         </Typography>
+        {/* INÍCIO ERRO E003: Tornar o botão “Nova Transação” invisível */}
         <Button
           className={classes.newTransactionButton}
           variant="contained"
@@ -167,9 +168,11 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
           component={RouterLink}
           to="/transaction/new"
           data-test="nav-top-new-transaction"
+          style={{ opacity: 0 }} // ERRO 003
         >
           <AttachMoneyIcon /> New
         </Button>
+        {/* FIM ERRO E003 */}
         <IconButton
           color="inherit"
           component={RouterLink}
