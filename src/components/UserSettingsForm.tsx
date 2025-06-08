@@ -34,7 +34,9 @@ const DefaultPrivacyLevelValues = Object.values(DefaultPrivacyLevel);
 const validationSchema = object({
   firstName: string().required("Enter a first name"),
   lastName: string().required("Enter a last name"),
-  email: string().email("Must contain a valid email address").required("Enter an email address"),
+  /* INÍCIO ERRO E004: Tornar o campo “email” opcional no cadastro */
+  email: string().email("Must contain a valid email address"),
+  /* FIM ERRO E004 */
   phoneNumber: string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("Enter a phone number"),
@@ -104,11 +106,12 @@ const UserSettingsForm: React.FC<UserSettingsProps> = ({ userProfile, updateUser
             </Field>
             <Field name="email">
               {({ field, meta: { error, value, initialValue, touched } }: FieldProps) => (
+                /* INÍCIO ERRO E004: Tornar o campo “email” opcional no cadastro */
                 <TextField
                   variant="outlined"
                   margin="dense"
                   fullWidth
-                  required
+                  // required removido - ERRO E004
                   id={"user-settings-email-input"}
                   type="text"
                   placeholder="Email"
@@ -117,6 +120,7 @@ const UserSettingsForm: React.FC<UserSettingsProps> = ({ userProfile, updateUser
                   helperText={touched || value !== initialValue ? error : ""}
                   {...field}
                 />
+                /* FIM ERRO E004 */
               )}
             </Field>
             <Field name="phoneNumber">
