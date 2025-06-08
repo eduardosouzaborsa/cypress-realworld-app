@@ -47,13 +47,15 @@ const validationSchema = object({
   firstName: string().required("First Name is required"),
   lastName: string().required("Last Name is required"),
   username: string().required("Username is required"),
+  //INÍCIO ERRO E005: Permitir senhas com menos de 6 caracteres
   password: string()
-    .min(4, "Password must contain at least 4 characters")
+    //.min(4, "Password must contain at least 4 characters") // ERRO E005: restrição removida
     .required("Enter your password"),
   confirmPassword: string()
     .required("Confirm your password")
     .oneOf([ref("password")], "Password does not match"),
 });
+//FIM ERRO E005
 
 export interface Props {
   authService: Interpreter<AuthMachineContext, AuthMachineSchema, AuthMachineEvents, any, any>;
