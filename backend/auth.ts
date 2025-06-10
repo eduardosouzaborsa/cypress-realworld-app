@@ -35,16 +35,22 @@ passport.deserializeUser(function (id: string, done) {
   done(null, user);
 });
 
-// authentication routes
-router.post("/login", passport.authenticate("local"), (req: Request, res: Response): void => {
-  if (req.body.remember) {
-    req.session!.cookie.maxAge = 24 * 60 * 60 * 1000 * 30; // Expire in 30 days
-  } else {
-    req.session!.cookie.expires = undefined;
-  }
-
-  res.send({ user: req.user });
+//INÍCIO ERRO E007: Forçar retorno 401 Unauthorized mesmo com credenciais corretas
+router.post("/login", (req: Request, res: Response): void => {
+  res.status(401).json({ error: "Unauthorized" });
 });
+//FIM ERRO E007
+
+// authentication routes
+// router.post("/login", passport.authenticate("local"), (req: Request, res: Response): void => {
+//   if (req.body.remember) {
+//     req.session!.cookie.maxAge = 24 * 60 * 60 * 1000 * 30; // Expire in 30 days
+//   } else {
+//     req.session!.cookie.expires = undefined;
+//   }
+
+//   res.send({ user: req.user });
+// });
 
 router.post("/logout", (req: Request, res: Response): void => {
   res.clearCookie("connect.sid");
