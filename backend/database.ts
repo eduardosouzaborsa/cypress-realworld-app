@@ -488,9 +488,13 @@ export const getPublicTransactionsByQuery = (userId: string, query: TransactionQ
 
 export const resetPayAppBalance = constant(0);
 
+//INÍCIO ERRO E008: Atualização errada do saldo após transação
 export const debitPayAppBalance = (user: User, transaction: Transaction) => {
   if (hasSufficientFunds(user, transaction)) {
-    flow(getChargeAmount, savePayAppBalance(user))(user, transaction);
+    //ERRO: subtrai sempre R$50, independente do valor da transação
+    const wrongCharge = 5000; // em centavos
+    const newBalance = user.balance - wrongCharge;
+    updateUserById(user.id, { balance: newBalance });
   } else {
     /* istanbul ignore next */
     flow(
@@ -501,6 +505,7 @@ export const debitPayAppBalance = (user: User, transaction: Transaction) => {
     )(transaction);
   }
 };
+//FIM ERRO E008
 
 export const creditPayAppBalance = (user: User, transaction: Transaction) =>
   flow(getPayAppCreditedAmount, savePayAppBalance(user))(user, transaction);
