@@ -129,16 +129,18 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
       className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
     >
       <Toolbar className={classes.toolbar}>
+        {/* INÍCIO ERRO E010: Remover aria-label do botão de abrir drawer */}
         <IconButton
           data-test="sidenav-toggle"
           edge="start"
           color="inherit"
-          aria-label="open drawer"
+          //aria-label removido - ERRO E010
           onClick={() => toggleDrawer()}
           size="large"
         >
           <MenuIcon data-test="drawer-icon" />
         </IconButton>
+        {/* FIM ERRO E010 */}
         <Typography
           component="h1"
           variant="h6"
