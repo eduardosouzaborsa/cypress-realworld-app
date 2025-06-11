@@ -90,7 +90,7 @@ router.get(
   }
 );
 
-//GET /transactions/public - auth-required
+//INÍCIO ERRO E009: Feed retorna lista vazia mesmo havendo transações
 router.get(
   "/public",
   ensureAuthenticated,
@@ -123,15 +123,16 @@ router.get(
     res.status(200);
     res.json({
       pageData: {
-        page: res.locals.paginate.page,
-        limit: res.locals.paginate.limit,
-        hasNextPages: res.locals.paginate.hasNextPages(totalPages),
-        totalPages,
+        page: 1,
+        limit: 10,
+        hasNextPages: false,
+        totalPages: 1,
       },
-      results: paginatedItems,
+      results: [], // ERRO E009: sempre vazio
     });
   }
 );
+//FIM ERRO E009
 
 //POST /transactions - scoped-user
 router.post(
