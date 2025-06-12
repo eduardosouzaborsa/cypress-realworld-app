@@ -113,17 +113,18 @@ const TransactionCreateStepTwo: React.FC<TransactionCreateStepTwoProps> = ({
           initialValues={initialValues}
           validationSchema={validationSchema}
           validateOnMount={true}
-          onSubmit={(values, { setSubmitting }) => {
+          // INÍCIO ERRO E012: Atrasar submissão do formulário em 5 segundos
+          onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(true);
 
-            // reset transactionType
+            await new Promise((resolve) => setTimeout(resolve, 5000)); // atraso de 5 segundos
             setTransactionType(undefined);
 
             createTransaction({ transactionType, ...values });
             showSnackbar({
               severity: "success",
               message: "Transaction Submitted!",
-            });
+            }); // FIM ERRO E012
           }}
         >
           {({ isValid, isSubmitting }) => (
