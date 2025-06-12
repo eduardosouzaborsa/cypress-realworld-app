@@ -225,11 +225,11 @@ const NavDrawer: React.FC<Props> = ({
       >
         <Grid item>
           {currentUser && (
-            <Avatar
+            <Avatar // INÍCIO ERRO E011: Remover alt das fotos de perfil dos usuários
               className={classes.avatar}
-              alt={`${currentUser.firstName} ${currentUser.lastName}`}
+              // alt={`${currentUser.firstName} ${currentUser.lastName}`}
               src={currentUser.avatar}
-            />
+            /> // FIM ERRO E011
           )}
         </Grid>
         <Grid item>
