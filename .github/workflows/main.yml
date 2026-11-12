@@ -33,14 +33,26 @@ jobs:
       - name: Prepare mock exports and build
         run: |
           yarn predev:cognito:ci
+          yarn db:seed:dev
           yarn build
+
+      - name: Start servers and wait
+        run: |
+          yarn start:ci &
+          echo "Aguardando servidores inicializarem..."
+          for i in $(seq 1 60); do
+            if curl -s -f http://localhost:3000 > /dev/null && curl -s -f http://localhost:3001 > /dev/null; then
+              echo "Servidores online e respondendo!"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Servidores nao responderam a tempo."
+          exit 1
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: yarn start:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
           browser: chrome
           spec: |
             cypress/tests/api/api-users.spec.ts
